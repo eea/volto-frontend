@@ -19,9 +19,7 @@ COPY . .
 # RUN chmod +x optimize_node_modules.sh
 
 RUN mkdir -p /opt/frontend/src/develop
-
 RUN chown -R node /opt/frontend
-
 USER node
 
 RUN echo "prefix = \"/home/node\"\n" > /home/node/.npmrc
@@ -30,7 +28,6 @@ RUN rm -rf node_modules .git
 RUN missdev
 RUN make activate-all
 RUN NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY npm install
-
 RUN RAZZLE_API_PATH=VOLTO_API_PATH RAZZLE_INTERNAL_API_PATH=VOLTO_INTERNAL_API_PATH yarn build
 
 # Second stage build
