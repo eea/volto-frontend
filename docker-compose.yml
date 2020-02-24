@@ -1,10 +1,34 @@
 version: '3'
 
 services:
+  frontend:
+    # image: eeacms/volto-starter-kit
+    build: .
+    ports:
+    - "8000:3000"
+    depends_on:
+    - ploneapi
+    environment:
+      API_PATH: http://localhost:8080/Plone
+      INTERNAL_API_PATH: http://ploneapi:8080/Plone
+
   ploneapi:
-    image: kitconcept/plone.restapi:latest
+    image: eeacms/plonesaas-devel
     ports:
       - "8080:8080"
-    # Uncomment if you need the data to be persistent
-    # volumes:
-    #   - ./data/:/data/
+    environment:
+      CORS_ALLOW_ORIGIN: "http://localhost:3000,http://127.0.0.1:3000,http://localhost:8000,http://127.0.0.1:8000"
+    depends_on:
+    - memcached
+    volumes:
+    - data:/data
+
+  memcached:
+    image: memcached
+    command:
+    - "-m"
+    - "512"
+
+volumes:
+  data:
+    driver: local

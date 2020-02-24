@@ -1,11 +1,8 @@
 {
-    "addons": [],
     "compilerOptions": {
-        "baseUrl": "src",
+        "experimentalDecorators": true,
+        "allowJs": true,
         "paths": {
-            "volto-addons": [
-                "develop/volto-addons/src"
-            ],
             "volto-base": [
                 "develop/volto-base/src"
             ],
@@ -14,7 +11,11 @@
             ],
             "volto-sidebar": [
                 "develop/volto-sidebar/src"
+            ],
+            "volto-addons": [
+                "develop/volto-addons/src"
             ]
-        }
+        },
+        "baseUrl": "src"
     }
 }

@@ -1,36 +1,43 @@
-/**
- * Add your config changes here.
- * @module config
- * @example
- * export const settings = {
- *   ...defaultSettings,
- *   port: 4300,
- *   listBlockTypes: {
- *     ...defaultSettings.listBlockTypes,
- *     'my-list-item',
- *   }
- * }
- */
+import * as voltoConfig from '@plone/volto/config';
 
-import {
-  settings as defaultSettings,
-  views as defaultViews,
-  widgets as defaultWidgets,
-  blocks as defaultBlocks,
-} from '@plone/volto/config';
+import { applyConfig as mosaicConfig } from 'volto-mosaic/config';
+import { applyConfig as installSidebar } from 'volto-sidebar/config';
+
+
+const config = [
+  installSidebar,
+  mosaicConfig
+].reduce((acc, apply) => apply(acc), voltoConfig);
 
 export const settings = {
-  ...defaultSettings,
+  ...config.settings
 };
 
 export const views = {
-  ...defaultViews,
+  ...config.views,
 };
 
 export const widgets = {
-  ...defaultWidgets,
+  ...config.widgets,
 };
 
 export const blocks = {
-  ...defaultBlocks,
+  ...config.blocks,
+};
+
+// TODO: should we move custom stuff to settings variable?
+// It would make future adding new settings types easier, as this file wouldn't
+// have to be updated in all frontend implementations
+// console.log('config.js AddonReducers', config.addonReducers);
+export const addonReducers = { ...config.addonReducers };
+export const addonRoutes = [...(config.addonRoutes || [])];
+
+export const viewlets = [...(config.viewlets || [])];
+
+export const portlets = {
+  ...config.portlets,
+};
+
+export const editForms = {
+  ...config.editForms,
 };

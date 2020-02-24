@@ -1,52 +1,80 @@
+# Volto Starter Kit (EEA Add-ons)
+
+This is both a [Github template repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) that will allow you to easily
+boostrap a new `Volto Frontend` project and also a developmnet environment for existing and new `EEA Volto Add-ons`
+
+
 ## Documentation
 
 A training on how to create your own website using Volto is available as part of the Plone training at [https://training.plone.org/5/volto/index.html](https://training.plone.org/5/volto/index.html).
 
-## Quick Start
 
-Below is a list of commands you will probably find useful.
+## Try it
 
-### `yarn start`
+1. Install [Docker](https://docs.docker.com/install/)
+1. Install [Docker Compose](https://docs.docker.com/compose/install/)
+1. Start:
 
-Runs the project in development mode.  
-You can view your application at `http://localhost:3000`
+        $ git checkout https://github.com/eea/volto-starter-kit.git volto-frontend
+        $ cd volto-frontend
 
-The page will reload if you make edits.
+        $ docker-compose pull
+        $ docker-compose up -d
 
-### `yarn build`
+1. Go to `http://localhost:8080` [Advanced](http://localhost:8080/@@plone-addsite?site_id=Plone&advanced=1):
+   * Add `Plone` site with add-ons enabled (**user:** `admin`, **password:** `admin`):
+     * `eea.restapi`
+     * `kitconcept.voltodemo`
 
-Builds the app for production to the build folder.
-
-The build is minified and the filenames include the hashes.
-Your app is ready to be deployed!
-
-### `yarn start:prod`
-
-Runs the compiled app in production.
-
-You can again view your application at `http://localhost:3000`
-
-### `yarn test`
-
-Runs the test watcher (Jest) in an interactive mode.
-By default, runs tests related to files changed since the last commit.
-
-### `yarn i18n`
-
-Runs the test i18n runner which extracts all the translation strings and
-generates the needed files.
+1. See application at http://localhost:8000
 
 
-### mr_developer
+## Development
 
-[mr_developer](https://www.npmjs.com/package/mr-developer) is a great tool
-for developing multiple packages at the same time.
+1. Install `nvm`
 
-mr_developer should work with this project by using the `--config` config option:
+        $ touch ~/.bash_profile
+        $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
-```bash
-mrdeveloper --config=jsconfig.json
-```
+        $ source ~/.bash_profile
+        $ nvm version
 
-Volto's latest razzle config will pay attention to your jsconfig.json file
-for any customizations.
+1. Install latest `NodeJS 10.x`:
+
+        $ nvm install 10
+        $ nvm use 10
+        $ node -v
+        v10.19.0
+
+1. Install `yarn`
+
+        $ curl -o- -L https://yarnpkg.com/install.sh | bash
+        $ yarn -v
+
+1. Install and run `mrs-develop`
+
+        $ npm -g i mrs-develop
+        $ missdev
+
+1. Activate `develop` add-ons
+
+        $ make activate-all
+
+1. Install
+
+        $ npm install
+
+1. Start backend
+
+         $ docker-compose up -d
+
+   * Go to `http://localhost:8080` [Advanced](http://localhost:8080/@@plone-addsite?site_id=Plone&advanced=1):
+   * Add `Plone` site with add-ons enabled (**user:** `admin`, **password:** `admin`):
+     * `eea.restapi`
+     * `kitconcept.voltodemo`
+
+1. Start frontend
+
+        $ yarn start
+
+1. See application at http://localhost:3000
