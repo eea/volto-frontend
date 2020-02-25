@@ -4,14 +4,12 @@ services:
   frontend:
     image: eeacms/volto-starter-kit
     ports:
-    - "8000:8000"
-    - "8001:8001"
+    - "8000:3000"
     depends_on:
     - ploneapi
     environment:
-      API_PATH: "http://localhost:8080/Plone"
-      INTERNAL_API_PATH: "http://ploneapi:8080/Plone"
-      PORT: "8000"
+      API_PATH: http://localhost:8080/Plone
+      INTERNAL_API_PATH: http://ploneapi:8080/Plone
 
   ploneapi:
     image: eeacms/plonesaas-devel
