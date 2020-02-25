@@ -8,8 +8,8 @@ services:
     depends_on:
     - ploneapi
     environment:
-      API_PATH: http://localhost:8080/Plone
-      INTERNAL_API_PATH: http://ploneapi:8080/Plone
+      API_PATH: "http://localhost:8080/Plone"
+      INTERNAL_API_PATH: "http://ploneapi:8080/Plone"
 
   ploneapi:
     image: eeacms/plonesaas-devel
