@@ -16,7 +16,6 @@ RUN npm i -g mrs-developer
 WORKDIR /opt/frontend/
 
 COPY . .
-# RUN chmod +x optimize_node_modules.sh
 
 RUN mkdir -p /opt/frontend/src/develop
 RUN chown -R node /opt/frontend
@@ -28,35 +27,37 @@ RUN rm -rf node_modules .git
 RUN missdev
 RUN make activate-all
 RUN NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY npm install
-RUN RAZZLE_API_PATH=VOLTO_API_PATH RAZZLE_INTERNAL_API_PATH=VOLTO_INTERNAL_API_PATH yarn build
+CMD yarn start
 
-# Second stage build
-FROM node:10-jessie
+# RUN RAZZLE_API_PATH=VOLTO_API_PATH RAZZLE_INTERNAL_API_PATH=VOLTO_INTERNAL_API_PATH yarn build
 
-RUN apt-get update -y \
- && apt-get install -y git bsdmainutils vim-nox mc \
- && rm -rf /var/lib/apt/lists/*
+# # Second stage build
+# FROM node:10-jessie
 
-WORKDIR /opt/frontend/
+# RUN apt-get update -y \
+#  && apt-get install -y git bsdmainutils vim-nox mc \
+#  && rm -rf /var/lib/apt/lists/*
 
-COPY entrypoint-prod.sh /opt/frontend/entrypoint.sh
-RUN chmod +x entrypoint.sh
+# WORKDIR /opt/frontend/
 
-COPY --from=build /opt/frontend/package.json .
-COPY --from=build /opt/frontend/package-lock.json .
+# COPY entrypoint-prod.sh /opt/frontend/entrypoint.sh
+# RUN chmod +x entrypoint.sh
 
-COPY --from=build /opt/frontend/public ./public
-COPY --from=build /opt/frontend/build ./build
+# COPY --from=build /opt/frontend/package.json .
+# COPY --from=build /opt/frontend/package-lock.json .
 
-RUN chown -R node /opt/frontend
+# COPY --from=build /opt/frontend/public ./public
+# COPY --from=build /opt/frontend/build ./build
 
-USER node
+# RUN chown -R node /opt/frontend
 
-RUN rm -rf package-lock.json
-RUN NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY npm install --production
+# USER node
 
-ENTRYPOINT ["/opt/frontend/entrypoint.sh"]
+# RUN rm -rf package-lock.json
+# RUN NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY npm install --production
 
-EXPOSE 3000 3001 4000 4001
+# ENTRYPOINT ["/opt/frontend/entrypoint.sh"]
 
-CMD yarn start:prod
+# EXPOSE 3000 3001 4000 4001
+
+# CMD yarn start:prod
