@@ -1,6 +1,7 @@
 # Volto Starter Kit (EEA Volto Add-ons)
 
-[![Build Status](https://ci.eionet.europa.eu/buildStatus/icon?job=volto%2Fvolto-starter-kit%2Fmaster)](https://ci.eionet.europa.eu/view/Github/job/volto/job/volto-starter-kit/job/master/display/redirect)
+[![Pipeline](https://ci.eionet.europa.eu/buildStatus/icon?job=volto%2Fvolto-starter-kit%2Fmaster&subject=pipeline)](https://ci.eionet.europa.eu/view/Github/job/volto/job/volto-starter-kit/job/master/display/redirect)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/eea/volto-starter-kit?sort=semver)](https://github.com/eea/volto-starter-kit/releases)
 
 This is both a [Github template repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template) that will allow you to easily
 boostrap a new `Volto Frontend` project and also a developmnet environment for existing and new `EEA Volto Add-ons`
