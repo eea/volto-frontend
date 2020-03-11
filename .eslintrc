@@ -22,14 +22,6 @@
                         "./src/develop/volto-base/src"
                     ],
                     [
-                        "volto-mosaic",
-                        "./src/develop/volto-mosaic/src"
-                    ],
-                    [
-                        "volto-sidebar",
-                        "./src/develop/volto-sidebar/src"
-                    ],
-                    [
                         "volto-addons",
                         "./src/develop/volto-addons/src"
                     ],
