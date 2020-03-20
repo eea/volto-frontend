@@ -10,7 +10,8 @@
     "test": "razzle test --env=jsdom --passWithNoTests",
     "start:prod": "NODE_ENV=production node build/server.js",
     "i18n": "NODE_ENV=production node node_modules/@plone/volto/src/i18n.js",
-    "develop": "missdev --config=jsconfig.json --output=develop"
+    "develop": "missdev --config=jsconfig.json --output=develop",
+    "analyze": "webpack-bundle-analyzer -p $PORT -h 0.0.0.0 ./build/public/stats.json"
   },
   "jest": {
     "snapshotSerializers": [
