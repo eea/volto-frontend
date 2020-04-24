@@ -5,13 +5,17 @@
   "version": "0.1.0",
   "scripts": {
     "start": "NODE_OPTIONS=--max-old-space-size=8192 razzle start",
+    "start:prod": "NODE_ENV=production node build/server.js",
+    "start:backend": "docker-compose up -d",
     "prebuild": "./scripts/prebuild-fix-modules.sh",
     "build": "razzle build",
     "test": "razzle test --env=jsdom --passWithNoTests",
-    "start:prod": "NODE_ENV=production node build/server.js",
     "i18n": "NODE_ENV=production node node_modules/@plone/volto/src/i18n.js",
     "develop": "missdev --config=jsconfig.json --output=develop",
-    "analyze": "webpack-bundle-analyzer -p $PORT -h 0.0.0.0 ./build/public/stats.json"
+    "analyze": "webpack-bundle-analyzer -p $PORT -h 0.0.0.0 ./build/public/stats.json",
+    "activate": "make activate",
+    "activate:all": "make activate-all",
+    "sync": "make sync"
   },
   "jest": {
     "snapshotSerializers": [
