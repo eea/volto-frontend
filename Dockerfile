@@ -45,6 +45,8 @@ RUN chmod +x entrypoint.sh
 COPY --from=build /opt/frontend/package.json .
 COPY --from=build /opt/frontend/Makefile .
 COPY --from=build /opt/frontend/package-lock.json .
+COPY --from=build /opt/frontend/scripts .
+COPY --from=build /opt/frontend/mrs.developer.json .
 
 COPY --from=build /opt/frontend/public ./public
 COPY --from=build /opt/frontend/build ./build
