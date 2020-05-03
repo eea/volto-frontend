@@ -43,6 +43,7 @@ COPY entrypoint-prod.sh /opt/frontend/entrypoint.sh
 RUN chmod +x entrypoint.sh
 
 COPY --from=build /opt/frontend/package.json .
+COPY --from=build /opt/frontend/Makefile .
 COPY --from=build /opt/frontend/package-lock.json .
 
 COPY --from=build /opt/frontend/public ./public
