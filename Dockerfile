@@ -6,6 +6,7 @@ ARG NPM_CONFIG_REGISTRY
 ARG MAX_OLD_SPACE_SIZE=8192
 
 ENV NODE_OPTIONS=--max_old_space_size=$MAX_OLD_SPACE_SIZE
+ENV CYPRESS_INSTALL_BINARY=0
 
 RUN apt-get update -y \
  && apt-get install -y git bsdmainutils vim-nox mc \
@@ -42,11 +43,8 @@ WORKDIR /opt/frontend/
 COPY entrypoint-prod.sh /opt/frontend/entrypoint.sh
 RUN chmod +x entrypoint.sh
 
-COPY --from=build /opt/frontend/package.json .
-COPY --from=build /opt/frontend/Makefile .
-COPY --from=build /opt/frontend/package-lock.json .
-COPY --from=build /opt/frontend/scripts .
-COPY --from=build /opt/frontend/mrs.developer.json .
+COPY . .
+RUN rm -rf node_modules
 
 COPY --from=build /opt/frontend/public ./public
 COPY --from=build /opt/frontend/build ./build
@@ -55,7 +53,13 @@ RUN chown -R node /opt/frontend
 
 USER node
 
-RUN rm -rf package-lock.json
+RUN mkdir -p /opt/frontend/src/develop
+RUN echo "" >> /opt/frontend/docker-image.txt
+
+WORKDIR /opt/frontend/
+COPY scripts .
+ENV CYPRESS_INSTALL_BINARY=0
+
 RUN NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY npm install --production
 
 ENTRYPOINT ["/opt/frontend/entrypoint.sh"]
