@@ -7,6 +7,7 @@ ARG MAX_OLD_SPACE_SIZE=8192
 
 ENV NODE_OPTIONS=--max_old_space_size=$MAX_OLD_SPACE_SIZE
 ENV CYPRESS_INSTALL_BINARY=0
+ENV NODE_ENV=development
 
 RUN apt-get update -y \
  && apt-get install -y git bsdmainutils vim-nox mc \
@@ -28,8 +29,8 @@ RUN rm -rf node_modules .git
 
 RUN missdev
 RUN make activate-all
-RUN NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY npm install
-RUN RAZZLE_API_PATH=VOLTO_API_PATH RAZZLE_INTERNAL_API_PATH=VOLTO_INTERNAL_API_PATH yarn build
+RUN NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY npm ci
+RUN RAZZLE_API_PATH=VOLTO_API_PATH RAZZLE_INTERNAL_API_PATH=VOLTO_INTERNAL_API_PATH npm run build
 
 # Second stage build
 FROM node:10-jessie
@@ -53,17 +54,20 @@ RUN chown -R node /opt/frontend
 
 USER node
 
+WORKDIR /opt/frontend/
+
 RUN mkdir -p /opt/frontend/src/develop
 RUN echo "" >> /opt/frontend/docker-image.txt
 
-WORKDIR /opt/frontend/
 COPY scripts .
-ENV CYPRESS_INSTALL_BINARY=0
 
-RUN NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY npm install --production
+ENV CYPRESS_INSTALL_BINARY=0
+ENV NODE_ENV=production
+
+RUN NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY npm ci
 
 ENTRYPOINT ["/opt/frontend/entrypoint.sh"]
 
 EXPOSE 3000 3001 4000 4001
 
-CMD yarn start:prod
+CMD npm run start:prod
