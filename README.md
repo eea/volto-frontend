@@ -1,5 +1,7 @@
 # Volto Starter Kit (EEA Volto Add-ons)
 
+DEPRECATED: Use official @plone/create-volto-app
+
 [![Pipeline](https://ci.eionet.europa.eu/buildStatus/icon?job=volto%2Fvolto-starter-kit%2Fmaster&subject=pipeline)](https://ci.eionet.europa.eu/view/Github/job/volto/job/volto-starter-kit/job/master/display/redirect)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/eea/volto-starter-kit?sort=semver)](https://github.com/eea/volto-starter-kit/releases)
 
